@@ -8,7 +8,7 @@
 
 ## 使用方法
 * 配置文件：conf.json (json格式，支持注释)
-[conf.json](http://github.com/simplejia/cmonitor/conf/conf.json)
+[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json)
 ```
 {
     "env": "dev", // 配置运行环境
