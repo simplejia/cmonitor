@@ -6,5 +6,5 @@ import (
 )
 
 func init() {
-	clog.Init("cmonitor", "", conf.C.Log.Level, conf.C.Log.Mode)
+	clog.Init("cmonitor", "", conf.C.Clog.Level, conf.C.Clog.Mode)
 }

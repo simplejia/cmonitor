@@ -13,8 +13,9 @@ import (
 )
 
 func GetProc(cmd string) (process *os.Process, err error) {
-	output, err := exec.Command("ps", "-e", "opid", "oppid", "ocmd").Output()
+	output, err := exec.Command("ps", "-e", "opid", "oppid", "ocmd").CombinedOutput()
 	if err != nil {
+		err = fmt.Errorf("err: %v, output: %s", err, output)
 		return
 	}
 

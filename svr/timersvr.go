@@ -27,7 +27,7 @@ func proc(service string, cmd string) {
 
 	process, err := procs.GetProc(fullpath)
 	if err != nil {
-		clog.Error("proc() GetProc %s error: %v, process: %v", service, err, process)
+		clog.Error("proc() GetProc %s error: %v", service, err)
 		return
 	}
 
@@ -50,7 +50,7 @@ func proc(service string, cmd string) {
 						time.Sleep(time.Second * 3)
 					}
 					if err := procs.StopProc(process); err != nil {
-						clog.Error("proc() StopProc %s error: %v, process: %v", service, err, process)
+						clog.Error("proc() StopProc %s error: %v", service, err)
 					} else {
 						process = nil
 					}
@@ -63,7 +63,7 @@ func proc(service string, cmd string) {
 						time.Sleep(time.Second * 3)
 					}
 					if process_i, err := procs.StartProc(fullpath, conf.C.Environ); err != nil || process_i == nil {
-						clog.Error("proc() StartProc %s error: %v, process: %v", service, err, process_i)
+						clog.Error("proc() StartProc %s error: %v", service, err)
 					} else {
 						process = process_i
 					}
@@ -77,7 +77,7 @@ func proc(service string, cmd string) {
 						time.Sleep(time.Second * 3)
 					}
 					if err := procs.StopProc(process); err != nil {
-						clog.Error("proc() StopProc %s error: %v, process: %v", service, err, process)
+						clog.Error("proc() StopProc %s error: %v", service, err)
 					} else {
 						process = nil
 					}
@@ -88,7 +88,7 @@ func proc(service string, cmd string) {
 		case <-tick2:
 			if status == 2 {
 				if process, err := procs.GetProc(fullpath); err != nil || process == nil {
-					clog.Error("proc() GetProc %s error: %v, process: %v", service, err, process)
+					clog.Error("proc() GetProc %s error: %v", service, err)
 				}
 			}
 		case <-tick3:

@@ -7,50 +7,47 @@
 * cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|status|...）
 
 ## 使用方法
-* 配置文件：conf.json (json格式，支持注释)
+* 配置文件：conf.json (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080::log.mode=1'，多个参数用`::`分隔
 [conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json)
 ```
 {
-    "env": "dev", // 配置运行环境
-    "envs": {
-        "dev": {
-            "port": 29118, // 配置监听端口
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536", // 配置环境变量
-            "svrs": {
-                // demo
-                "demo": "wsp/demo/demo" // key: 名字 value: 将与rootpath拼接在一起运行
-            },
-            "log": {
-                "mode": 3, // 0: none, 1: localfile, 2: collector (数字代表bit位)
-                "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+    "dev": {
+        "port": 29118, // 配置监听端口
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536", // 配置环境变量
+        "svrs": {
+            // demo
+            "demo": "wsp/demo/demo" // key: 名字 value: 将与rootpath拼接在一起运行
         },
-        "test": {
-            "port": 29118, // 配置监听端口
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536", // 配置环境变量
-            "svrs": {
-                // demo 
-                "demo": "wsp/demo/demo"
-            },
-            "log": {
-                "mode": 3, // 0: none, 1: localfile, 2: collector (数字代表bit位)
-                "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+        "log": {
+            "mode": 3, // 0: none, 1: localfile, 2: collector (数字代表bit位)
+            "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
+        }
+    },
+    "test": {
+        "port": 29118, // 配置监听端口
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536", // 配置环境变量
+        "svrs": {
+            // demo 
+            "demo": "wsp/demo/demo"
         },
-        "prod": {
-            "port": 29118, // 配置监听端口
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536", // 配置环境变量
-            "svrs": {
-                // demo 
-                "demo": "wsp/demo/demo"
-            },
-            "log": {
-                "mode": 2, // 0: none, 1: localfile, 2: collector (数字代表bit位)
-                "level": 14 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+        "log": {
+            "mode": 3, // 0: none, 1: localfile, 2: collector (数字代表bit位)
+            "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
+        }
+    },
+    "prod": {
+        "port": 29118, // 配置监听端口
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536", // 配置环境变量
+        "svrs": {
+            // demo 
+            "demo": "wsp/demo/demo"
+        },
+        "log": {
+            "mode": 2, // 0: none, 1: localfile, 2: collector (数字代表bit位)
+            "level": 14 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
         }
     }
 }

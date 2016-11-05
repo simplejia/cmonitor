@@ -19,8 +19,7 @@ import (
 
 func StartHttpSvr() {
 	s := &http.Server{
-		Addr:        fmt.Sprintf("%s:%d", utils.GetLocalIp(), conf.C.Port),
-		ReadTimeout: time.Second * 3,
+		Addr: fmt.Sprintf("%s:%d", utils.GetLocalIp(), conf.C.Port),
 	}
 
 	http.HandleFunc("/", indexHandler)
@@ -31,44 +30,42 @@ func StartHttpSvr() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	defer func() {
-		if err := recover(); err != nil {
-			http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
-		}
-	}()
 	command := r.FormValue("command")
 	service := r.FormValue("service")
-	if command == "" || service == "" {
-		panic("command or serivce is empty")
-	}
 
 	services := []string{}
 	if service != "all" {
-		if _, ok := conf.C.Svrs[service]; !ok {
-			panic("serivce not configure")
-		}
-		services = append(services, service)
-	} else {
-		for _service, _ := range conf.C.Svrs {
-			if _service != "" {
-				services = append(services, _service)
+		for _, service := range strings.Split(strings.Replace(service, " ", "", -1), ",") {
+			if service == "" {
+				continue
 			}
+			if _, ok := conf.C.Svrs[service]; !ok {
+				w.Write([]byte(fmt.Sprintf("Error: serivce[%s] not configure", service)))
+			}
+			services = append(services, service)
+		}
+	} else {
+		for service, _ := range conf.C.Svrs {
+			if service == "" {
+				continue
+			}
+			services = append(services, service)
 		}
 	}
 
 	switch command {
 	case comm.STATUS:
 		statusoks, statusfails := []string{}, []string{}
-		for _, _service := range services {
-			fullpath := filepath.Join(conf.C.RootPath, conf.C.Svrs[_service])
+		for _, service := range services {
+			fullpath := filepath.Join(conf.C.RootPath, conf.C.Svrs[service])
 			process, err := procs.GetProc(fullpath)
 			if err != nil {
-				w.Write([]byte(fmt.Sprintf("\nget service %s error: %v\n", _service, err)))
+				w.Write([]byte(fmt.Sprintf("\nget service %s error: %v\n", service, err)))
 			}
 			if process != nil {
-				statusoks = append(statusoks, _service+" PID:"+strconv.Itoa(process.Pid))
+				statusoks = append(statusoks, service+" PID:"+strconv.Itoa(process.Pid))
 			} else {
-				statusfails = append(statusfails, _service)
+				statusfails = append(statusfails, service)
 			}
 		}
 
@@ -79,22 +76,25 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(fmt.Sprintf("\n*****STATUS FAIL SERVICE LIST*****\n%s\n", strings.Join(statusfails, "\n"))))
 	default:
 		services_fail := []string{}
-		var process_old *os.Process
-		if len(services) == 1 {
-			process_old, _ = procs.GetProc(filepath.Join(conf.C.RootPath, conf.C.Svrs[services[0]]))
-		}
+		processes_old := []*os.Process{}
 
-		for _, _service := range services {
+		for _, service := range services {
+			fullpath := filepath.Join(conf.C.RootPath, conf.C.Svrs[service])
+			process_old, _ := procs.GetProc(fullpath)
+			processes_old = append(processes_old, process_old)
+
 			select {
-			case ProcChs[_service] <- &Msg{Command: command}:
+			case ProcChs[service] <- &Msg{Command: command}:
+			default:
 			}
 		}
 
-		if len(services) == 1 {
-			service := services[0]
-			i := 5
-			for ; i > 0; i-- {
-				process_new, err := procs.GetProc(filepath.Join(conf.C.RootPath, conf.C.Svrs[service]))
+		for pos, service := range services {
+			process_old := processes_old[pos]
+			step := 5
+			for ; step > 0; step-- {
+				fullpath := filepath.Join(conf.C.RootPath, conf.C.Svrs[service])
+				process_new, err := procs.GetProc(fullpath)
 				if err != nil {
 					w.Write([]byte(fmt.Sprintf("\nget service %s error: %v\n", service, err)))
 					continue
@@ -120,7 +120,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 				time.Sleep(time.Millisecond * 300)
 			}
 
-			if i == 0 {
+			if step == 0 {
 				services_fail = append(services_fail, service)
 			}
 		}
@@ -128,7 +128,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		if len(services_fail) == 0 {
 			w.Write([]byte("SUCCESS"))
 		} else {
-			w.Write([]byte(fmt.Sprintf("FAIL: %v", services_fail)))
+			w.Write([]byte(fmt.Sprintf("FAIL: %v", strings.Join(services_fail, ", "))))
 		}
 	}
 }

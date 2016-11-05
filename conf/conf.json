@@ -1,44 +1,41 @@
 {
-    "env": "dev",
-    "envs": {
-        "dev": {
-            "port": 29118, // configure admin port
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536",                    
-            "svrs": {
-                // demo 
-                "demo": "wsp/demo/demo"
-            },
-            "log": {
-                "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
-                "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+    "dev": {
+        "port": 29118, // configure admin port
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536",                    
+        "svrs": {
+            // demo 
+            "demo": "wsp/demo/demo"
         },
-        "test": {
-            "port": 29118, // configure admin port
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536",                    
-            "svrs": {
-                // demo 
-                "demo": "wsp/demo/demo"
-            },
-            "log": {
-                "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
-                "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+        "clog": {
+            "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
+            "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
+        }
+    },
+    "test": {
+        "port": 29118, // configure admin port
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536",                    
+        "svrs": {
+            // demo 
+            "demo": "wsp/demo/demo"
         },
-        "prod": {
-            "port": 29118, // configure admin port
-            "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
-            "environ": "ulimit -n 65536",                    
-            "svrs": {
-                // demo 
-                "demo": "wsp/demo/demo"
-            },
-            "log": {
-                "mode": 2, // 0: none, 1: localfile, 2: clog (数字代表bit位)
-                "level": 14 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
-            }
+        "clog": {
+            "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
+            "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
+        }
+    },
+    "prod": {
+        "port": 29118, // configure admin port
+        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "environ": "ulimit -n 65536",                    
+        "svrs": {
+            // demo 
+            "demo": "wsp/demo/demo"
+        },
+        "clog": {
+            "mode": 2, // 0: none, 1: localfile, 2: clog (数字代表bit位)
+            "level": 14 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
         }
     }
 }
