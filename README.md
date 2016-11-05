@@ -7,8 +7,7 @@
 * cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|status|...）
 
 ## 使用方法
-* 配置文件：conf.json (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080::log.mode=1'，多个参数用`::`分隔
-[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json)
+* 配置文件：[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080::log.mode=1'，多个参数用`::`分隔
 ```
 {
     "dev": {
