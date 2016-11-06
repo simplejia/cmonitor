@@ -2,6 +2,9 @@
 ## 功能
 * 用于进程监控，管理
 
+## 安装
+> go get -u github.com/simplejia/cmonitor
+
 ## 实现
 * 被监控进程启动后，按每300ms执行一次状态检测（通过发signal0信号检测），每个被监控进程在一个独立的协程里被监测。
 * cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|status|...）
