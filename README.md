@@ -52,7 +52,7 @@
 }
 ```
 * 运行方法：cmonitor.sh [start|stop|restart|status|check]
-* 进程管理：cmonitor -[h|status|start|stop|restart] [all|["svrname"]]
+* 进程管理：cmonitor -[h|env|status|start|stop|restart] [dev|test|prod|all|["svrname"]]
 
 ## 注意
 * cmonitor的运行日志通过clog上报，也可记录在本地cmonitor.log日志文件里，注意：此cmonitor.log日志文件不会被切分，所以尽量保持较少的日志输出，建议通过clog方式上报日志
@@ -66,7 +66,7 @@
 
 ## demo
 ```
-$ cmonitor -status all
+$ cmonitor -env dev -status all
 
 *****STATUS OK SERVICE LIST*****
 demo PID:13539
@@ -76,7 +76,3 @@ demo PID:13539
 $ cmonitor -restart demo
 SUCCESS
 ```
-
-## LICENSE
-cmonitor is licensed under the Apache Licence, Version 2.0
-(http://www.apache.org/licenses/LICENSE-2.0.html)
