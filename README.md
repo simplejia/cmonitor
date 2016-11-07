@@ -7,7 +7,7 @@
 
 ## 实现
 * 被监控进程启动后，按每300ms执行一次状态检测（通过发signal0信号检测），每个被监控进程在一个独立的协程里被监测。
-* cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|status|...）
+* cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|restart|status|...）
 
 ## 使用方法
 * 配置文件：[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080::clog.mode=1'，多个参数用`::`分隔
@@ -76,6 +76,6 @@ demo PID:13539
 
 *****STATUS FAIL SERVICE LIST*****
 
-$ cmonitor -restart demo
+$ cmonitor -env dev -restart demo
 SUCCESS
 ```
