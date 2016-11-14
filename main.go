@@ -21,7 +21,12 @@ func request(command string, service string) {
 		"command": command,
 		"service": service,
 	}
-	body, err := utils.Get(url, time.Second*8, nil, params)
+	gpp := &utils.GPP{
+		Uri:     url,
+		Timeout: time.Second * 8,
+		Params:  params,
+	}
+	body, err := utils.Get(gpp)
 	if err != nil {
 		fmt.Printf("Error: [cmonitor maybe down!] %v, %s\n", err, body)
 		return
