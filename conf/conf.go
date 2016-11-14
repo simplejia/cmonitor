@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"chatroombase/cmonitor/comm"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -13,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/simplejia/cmonitor/comm"
 	"github.com/simplejia/utils"
 )
 
