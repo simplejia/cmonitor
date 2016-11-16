@@ -1,3 +1,6 @@
+[中文 README](#中文)
+
+
 # [cmonitor](http://github.com/simplejia/cmonitor)
 ## Functions
 * Used to monitor and manage processes
@@ -81,7 +84,8 @@ SUCCESS
 ```
 
 ---
-
+中文
+===
 
 # [cmonitor](http://github.com/simplejia/cmonitor)
 ## 功能
