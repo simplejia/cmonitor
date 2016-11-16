@@ -27,7 +27,7 @@ retval=0
 PATH=".:$PATH"
 export PATH
 
-pid_cmd="ps -e opid ocmd|grep -v grep|grep -v "$procname.sh"|grep $cmd|awk '{print \$1}'"
+pid_cmd="ps -e opid ocmd|grep -v grep|grep -v $procname.sh|grep \"$cmd\"|awk '{print \$1}'"
 
 # start the server
 start(){
