@@ -13,7 +13,7 @@
 * When cmonitor is started, it will listen on a tcp port which is used to receive management commands（start|stop|restart|status|...）
 
 ## Playing with cmonitor
-* Configuration files: [conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json format, supporting annotations)，You can redefine the parameters in the configuration files via passing env and conf parameters, such as ：./cmonitor -env dev -conf='port=8080::clog.mode=1', multiple parameters are separated by ::
+* Configuration files: [conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json format, supporting annotations)，You can redefine the parameters in the configuration files via passing env and conf parameters, such as ：./cmonitor -env dev -conf='port=8080;clog.mode=1', multiple parameters are separated by `;`
 ```
 {
     "dev": {
@@ -99,7 +99,7 @@ SUCCESS
 * cmonitor启动后会监听一个http端口用于接收管理命令（start|stop|restart|status|...）
 
 ## 使用方法
-* 配置文件：[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080::clog.mode=1'，多个参数用`::`分隔
+* 配置文件：[conf.json](http://github.com/simplejia/cmonitor/tree/master/conf/conf.json) (json格式，支持注释)，可以通过传入自定义的env及conf参数来重定义配置文件里的参数，如：./cmonitor -env dev -conf='port=8080;clog.mode=1'，多个参数用`;`分隔
 ```
 {
     "dev": {

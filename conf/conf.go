@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -81,13 +82,13 @@ func init() {
 				os.Exit(-1)
 			}
 		}()
-		ccs := strings.Split(conf, "::")
-		for _, cs := range ccs {
-			pos := strings.Index(cs, "=")
-			if pos == -1 {
-				continue
-			}
-			name, value := strings.TrimSpace(cs[:pos]), strings.TrimSpace(cs[pos+1:])
+
+		matchs := regexp.MustCompile(`[\w|\.]+|".*?[^\\"]"`).FindAllString(conf, -1)
+		for n, match := range matchs {
+			matchs[n] = strings.Replace(strings.Trim(match, "\""), `\"`, `"`, -1)
+		}
+		for n := 0; n < len(matchs); n += 2 {
+			name, value := matchs[n], matchs[n+1]
 
 			rv := reflect.Indirect(reflect.ValueOf(C))
 			for _, field := range strings.Split(name, ".") {
