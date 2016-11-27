@@ -19,7 +19,7 @@ func GetProc(cmd string) (process *os.Process, err error) {
 		return
 	}
 
-	lines := strings.Split(string(output[:]), "\n")
+	lines := strings.Split(string(output), "\n")
 	pid := ""
 	for _, line := range lines {
 		fields := strings.Fields(line)
