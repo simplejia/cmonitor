@@ -19,7 +19,7 @@ import (
 
 func StartHttpSvr() {
 	s := &http.Server{
-		Addr: fmt.Sprintf("%s:%d", utils.GetLocalIp(), conf.C.Port),
+		Addr: fmt.Sprintf("%s:%d", utils.LocalIp, conf.C.Port),
 	}
 
 	http.HandleFunc("/", indexHandler)

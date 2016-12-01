@@ -16,7 +16,7 @@ import (
 )
 
 func request(command string, service string) {
-	url := fmt.Sprintf("http://%s:%d", utils.GetLocalIp(), conf.C.Port)
+	url := fmt.Sprintf("http://%s:%d", utils.LocalIp, conf.C.Port)
 	params := map[string]string{
 		"command": command,
 		"service": service,
