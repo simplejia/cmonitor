@@ -1,7 +1,7 @@
 {
     "dev": {
         "port": 29118, // configure admin port
-        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "rootpath": "/home/simplejia/Programming/go/ws/src/github.com/simplejia",
         "environ": "ulimit -n 65536",                    
         "svrs": {
             // demo 
@@ -14,7 +14,7 @@
     },
     "test": {
         "port": 29118, // configure admin port
-        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "rootpath": "/home/simplejia/Programming/go/ws/src/github.com/simplejia",
         "environ": "ulimit -n 65536",                    
         "svrs": {
             // demo 
@@ -27,7 +27,7 @@
     },
     "prod": {
         "port": 29118, // configure admin port
-        "rootpath": "/home/simplejia/tools/go/ws/src/github.com/simplejia",
+        "rootpath": "/home/simplejia/Programming/go/ws/src/github.com/simplejia",
         "environ": "ulimit -n 65536",                    
         "svrs": {
             // demo 
