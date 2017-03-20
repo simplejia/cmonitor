@@ -69,17 +69,13 @@ func StopProc(process *os.Process) (err error) {
 	return
 }
 
-func CheckProc(process *os.Process) (ok bool, err error) {
+func CheckProc(process *os.Process) (ok bool) {
 	if process == nil {
 		return
 	}
-	_err := process.Signal(syscall.Signal(0))
-	if _err == nil {
+	err := process.Signal(syscall.Signal(0))
+	if err == nil {
 		ok = true
-	} else if _err == syscall.ESRCH || _err.Error() == "os: process already finished" {
-		ok = false
-	} else {
-		err = _err
 	}
 	return
 }

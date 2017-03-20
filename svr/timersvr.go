@@ -43,7 +43,7 @@ func proc(service string, cmd string) {
 		case <-tick1:
 			switch status {
 			case 1: // stop
-				if ok, err := procs.CheckProc(process); err != nil || ok {
+				if ok := procs.CheckProc(process); ok {
 					if failNum++; failNum > 5 {
 						clog.Error("proc() stop %s always fail, must check it", service)
 						failNum = 0
@@ -56,7 +56,7 @@ func proc(service string, cmd string) {
 					}
 				}
 			case 2: // start
-				if ok, err := procs.CheckProc(process); err != nil || !ok {
+				if ok := procs.CheckProc(process); !ok {
 					if failNum++; failNum > 5 {
 						clog.Error("proc() start %s always fail, must check it", service)
 						failNum = 0
@@ -70,7 +70,7 @@ func proc(service string, cmd string) {
 					time.Sleep(time.Second)
 				}
 			case 3: // restart
-				if ok, err := procs.CheckProc(process); err != nil || ok {
+				if ok := procs.CheckProc(process); ok {
 					if failNum++; failNum > 5 {
 						clog.Error("proc() stop %s always fail, must check it", service)
 						failNum = 0
