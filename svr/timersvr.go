@@ -100,7 +100,7 @@ func proc(service string, cmd string) {
 				dirname = filepath.Dir(fullpath)
 			}
 			cmdStr := fmt.Sprintf(
-				"cd %s; cp cmonitor.log cmonitor.%d.log && cat /dev/null >cmonitor.log",
+				"cd %s; head -c`wc -c cmonitor.log|awk '{print $1}'` cmonitor.log >cmonitor.%d.log && cat /dev/null >cmonitor.log",
 				dirname, time.Now().Day(),
 			)
 			err := exec.Command("sh", "-c", cmdStr).Run()

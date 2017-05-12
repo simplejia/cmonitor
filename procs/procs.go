@@ -98,7 +98,7 @@ func StartProc(cmd string, env string) (process *os.Process, err error) {
 		env = "true"
 	}
 	cmdStr := fmt.Sprintf(
-		"cd %s; %s; nohup %s >cmonitor.log 2>&1 &",
+		"cd %s; %s; nohup %s >>cmonitor.log 2>&1 &",
 		dirname, env, cmd,
 	)
 
