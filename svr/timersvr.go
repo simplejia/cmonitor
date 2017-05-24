@@ -35,7 +35,7 @@ func proc(service string, cmd string) {
 	tick2 := time.Tick(time.Minute)
 	tick3 := time.Tick(time.Hour * 24)
 	failNum := 0
-	status := 2 // 1: stop 2: start 3: restart
+	status := 2 // 1: stop 2: start 3: restart 4: grace restart
 	msgCh := ProcChs[service]
 
 	for {
@@ -84,6 +84,21 @@ func proc(service string, cmd string) {
 				} else {
 					status = 2
 				}
+			case 4: // grace restart
+				if ok := procs.CheckProc(process); ok {
+					if failNum++; failNum > 5 {
+						clog.Error("proc() stop %s always fail, must check it", service)
+						failNum = 0
+						time.Sleep(time.Second * 3)
+					}
+					if err := procs.GStopProc(process); err != nil {
+						clog.Error("proc() GStopProc %s error: %v", service, err)
+					} else {
+						process = nil
+					}
+				} else {
+					status = 2
+				}
 			}
 		case <-tick2:
 			if status == 2 {
@@ -115,6 +130,8 @@ func proc(service string, cmd string) {
 				failNum, status = 0, 2
 			case comm.RESTART:
 				failNum, status = 0, 3
+			case comm.GRESTART:
+				failNum, status = 0, 4
 			default:
 				clog.Error("proc() unexpected command: %s", msg.Command)
 			}

@@ -69,6 +69,18 @@ func StopProc(process *os.Process) (err error) {
 	return
 }
 
+func GStopProc(process *os.Process) (err error) {
+	if process == nil {
+		return
+	}
+	// SIGHUP: 1
+	if err = process.Signal(syscall.Signal(1)); err != nil {
+		return
+	}
+	process.Release()
+	return
+}
+
 func CheckProc(process *os.Process) (ok bool) {
 	if process == nil {
 		return

@@ -108,7 +108,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 					if process_new != nil {
 						break
 					}
-				} else if command == comm.RESTART {
+				} else if command == comm.RESTART || command == comm.GRESTART {
 					if process_new != nil {
 						if process_old == nil {
 							break

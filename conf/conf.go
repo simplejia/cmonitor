@@ -29,16 +29,17 @@ type Conf struct {
 }
 
 var (
-	Envs                         map[string]*Conf
-	Env                          string
-	C                            *Conf
-	Start, Stop, Restart, Status string
+	Envs                                       map[string]*Conf
+	Env                                        string
+	C                                          *Conf
+	Start, Stop, Restart, GraceRestart, Status string
 )
 
 func init() {
 	flag.StringVar(&Start, comm.START, "", "start a svr")
 	flag.StringVar(&Stop, comm.STOP, "", "stop a svr")
 	flag.StringVar(&Restart, comm.RESTART, "", "restart a svr")
+	flag.StringVar(&GraceRestart, comm.GRESTART, "", "grace restart a svr")
 	flag.StringVar(&Status, comm.STATUS, "", "status a svr")
 	flag.StringVar(&Env, "env", "prod", "set env")
 

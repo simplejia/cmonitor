@@ -44,6 +44,8 @@ func main() {
 		request(comm.STOP, conf.Stop)
 	case conf.Restart != "":
 		request(comm.RESTART, conf.Restart)
+	case conf.GraceRestart != "":
+		request(comm.GRESTART, conf.GraceRestart)
 	case conf.Status != "":
 		request(comm.STATUS, conf.Status)
 	default:
