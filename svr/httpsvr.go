@@ -40,7 +40,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 			if _, ok := conf.C.Svrs[service]; !ok {
-				w.Write([]byte(fmt.Sprintf("Error: serivce[%s] not configure", service)))
+				w.Write([]byte(fmt.Sprintf("Error: serivce[%s] not configure\n", service)))
 			}
 			services = append(services, service)
 		}
