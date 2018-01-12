@@ -23,6 +23,8 @@ type Conf struct {
 	Environ  string
 	Svrs     map[string]string
 	Clog     *struct {
+		Name  string
+		Addr  string
 		Mode  int
 		Level int
 	}

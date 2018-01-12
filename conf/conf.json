@@ -8,6 +8,8 @@
             "demo": "wsp/demo/demo"
         },
         "clog": {
+            "name": "cmonitor",
+            "addr": "clog.srv.ns",
             "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
             "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
         }
@@ -21,6 +23,8 @@
             "demo": "wsp/demo/demo"
         },
         "clog": {
+            "name": "cmonitor",
+            "addr": "clog.srv.ns",
             "mode": 1, // 0: none, 1: localfile, 2: clog (数字代表bit位)
             "level": 15 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
         }
@@ -34,6 +38,8 @@
             "demo": "wsp/demo/demo"
         },
         "clog": {
+            "name": "cmonitor",
+            "addr": "clog.srv.ns",
             "mode": 2, // 0: none, 1: localfile, 2: clog (数字代表bit位)
             "level": 14 // 0: none, 1: debug, 2: warn 4: error 8: info (数字代表bit位)
         }
