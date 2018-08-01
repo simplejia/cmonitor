@@ -3,7 +3,6 @@ package procs
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -125,10 +124,31 @@ func StartProc(cmd string, env string) (process *os.Process, err error) {
 	if process != nil {
 		return
 	}
-	content, err := ioutil.ReadFile(filepath.Join(dirname, "cmonitor.log"))
+
+	logfile := filepath.Join(dirname, "cmonitor.log")
+	fi, err := os.Stat(logfile)
+	if err != nil {
+		if os.IsNotExist(err) {
+			err = nil
+			return
+		}
+		return
+	}
+
+	logpos := int64(0)
+	logbuf := make([]byte, 256)
+	if n, m := fi.Size(), int64(len(logbuf)); n > m {
+		logpos = n - m
+	}
+
+	f, err := os.Open(logfile)
 	if err != nil {
 		return
 	}
-	err = errors.New(string(content))
+	defer f.Close()
+
+	f.ReadAt(logbuf, logpos)
+
+	err = errors.New(string(logbuf))
 	return
 }
