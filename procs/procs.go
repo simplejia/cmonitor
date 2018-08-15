@@ -18,8 +18,9 @@ func GetProc(cmd string) (process *os.Process, err error) {
 		return
 	}
 
-	lines := strings.Split(string(output), "\n")
 	pid := ""
+
+	lines := strings.Split(string(output), "\n")
 	for _, line := range lines {
 		fields := strings.Fields(line)
 		if len(fields) < 3 {
@@ -30,17 +31,22 @@ func GetProc(cmd string) (process *os.Process, err error) {
 		if strings.Join(strings.Fields(cmd), " ") != _cmd {
 			continue
 		}
-		if pid == "" {
-			if _ppid == "1" {
-				pid = _pid
-			} else {
-				pid = _ppid
-			}
+
+		var tpid string
+		if _ppid == "1" {
+			tpid = _pid
 		} else {
-			if _ppid != pid {
-				err = fmt.Errorf("GetProc() %s multi process exist, ppid:%v pid:%v", cmd, _ppid, pid)
-				return
-			}
+			tpid = _ppid
+		}
+
+		if pid == "" {
+			pid = tpid
+			continue
+		}
+
+		if tpid != pid {
+			err = fmt.Errorf("GetProc() %s multi process exist, pids: %v,%v", cmd, tpid, pid)
+			return
 		}
 	}
 
