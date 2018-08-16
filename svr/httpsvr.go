@@ -91,7 +91,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 		for pos, service := range services {
 			process_old := processes_old[pos]
-			step := 5
+			step := 6
 			for ; step > 0; step-- {
 				fullpath := filepath.Join(conf.C.RootPath, conf.C.Svrs[service])
 				process_new, err := procs.GetProc(fullpath)
