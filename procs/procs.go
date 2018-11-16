@@ -1,6 +1,7 @@
 package procs
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -115,14 +116,20 @@ func StartProc(cmd string, env string) (process *os.Process, err error) {
 		env = "true"
 	}
 	cmdStr := fmt.Sprintf(
-		"cd %s; %s; nohup %s >>cmonitor.log 2>&1 &",
+		"cd %s && %s && $(nohup %s >>cmonitor.log 2>&1 &)",
 		dirname, env, cmd,
 	)
 
-	err = exec.Command("sh", "-c", cmdStr).Run()
-	if err != nil {
+	command := exec.Command("sh", "-c", cmdStr)
+	errBuf := new(bytes.Buffer)
+	command.Stderr = errBuf
+	if err = command.Run(); err != nil {
+		if errBuf.Len() > 0 {
+			err = errors.New(errBuf.String())
+		}
 		return
 	}
+
 	process, err = GetProc(cmd)
 	if err != nil {
 		return
@@ -135,7 +142,7 @@ func StartProc(cmd string, env string) (process *os.Process, err error) {
 	fi, err := os.Stat(logfile)
 	if err != nil {
 		if os.IsNotExist(err) {
-			err = nil
+			err = errors.New("check cmonitor log")
 			return
 		}
 		return

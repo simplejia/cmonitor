@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/simplejia/clog"
-	_ "github.com/simplejia/cmonitor/clog"
+	"github.com/simplejia/clog/api"
 	"github.com/simplejia/cmonitor/comm"
 	"github.com/simplejia/cmonitor/conf"
 	"github.com/simplejia/cmonitor/svr"
+	"github.com/simplejia/namecli/api"
 	"github.com/simplejia/utils"
 )
 
@@ -34,6 +34,13 @@ func request(command string, service string) {
 
 	fmt.Println(string(body))
 	return
+}
+
+func init() {
+	clog.AddrFunc = func() (string, error) {
+		return api.Name(conf.C.Clog.Addr)
+	}
+	clog.Init(conf.C.Clog.Name, "", conf.C.Clog.Level, conf.C.Clog.Mode)
 }
 
 func main() {

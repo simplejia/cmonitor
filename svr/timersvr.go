@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/simplejia/clog"
+	"github.com/simplejia/clog/api"
 	"github.com/simplejia/cmonitor/comm"
 	"github.com/simplejia/cmonitor/conf"
 	"github.com/simplejia/cmonitor/procs"
